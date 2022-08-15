@@ -1,2 +1,2 @@
 # am-notificator
-New realese notificator from Apple Music
+New release notificator from Apple Music

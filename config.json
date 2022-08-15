@@ -1,0 +1,11 @@
+{
+  "telegram_token": "",
+  "apple_secret_key": "",
+  "apple_key_id": "",
+  "apple_team_id": "",
+  "mariadb_login": "",
+  "mariadb_password": "",
+  "mariadb_host": "",
+  "maria_db_port": "",
+  "mariadb_schema": ""
+}
