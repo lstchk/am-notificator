@@ -10,3 +10,7 @@ class ConfigReader:
 
         config = json.load(file)
         return config
+
+
+config_reader = ConfigReader("../resources/config.json")
+config = config_reader.read_config()

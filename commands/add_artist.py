@@ -1,6 +1,7 @@
-import mariadb as mdb
 from telebot import types
-from bot_manipulator import bot
+from utils.db_util import DbUtil
+from utils.bot_manipulator import bot
+from utils.spotipy_manipulator import spotify_client
 
 artists_pairs = {}
 
@@ -12,19 +13,13 @@ def _find_artist_name(text) -> str:
     return artist
 
 
-def _add_to_db(artist, link):
-    print(artist, link)
-
-
 class AddArtist:
-    def __init__(self, message, config, sp):
+    def __init__(self, message):
         self.message = message
         self.artist = _find_artist_name(message.text)
-        self.config = config
-        self.sp = sp
 
     def add(self):
-        results = self.sp.search(q='artist:' + self.artist, type='artist', limit=3)
+        results = spotify_client.search(q='artist:' + self.artist, type='artist', limit=3)
         if results['artists']["items"]:
             items = results['artists']['items']
             self._create_artist_url_pairs(items)
@@ -45,7 +40,8 @@ class AddArtist:
             artists_pairs[i['external_urls']['spotify']] = i['name']
 
     @bot.callback_query_handler(func=lambda call: True)
-    def _handle_artist_callback(call):
+    def _handle_artist_callback(self, call):
         bot.answer_callback_query(callback_query_id=call.id)
         answer = call.data
-        _add_to_db(artists_pairs[answer], answer)
+        db = DbUtil(self.message.chat.id, call.from_user.id)
+        db.add_new_artist_to_subscribe_list(artists_pairs[answer], answer)

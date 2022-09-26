@@ -1,0 +1,11 @@
+{
+  "telegram_token": "",
+  "spotify_secret_key": "",
+  "spotify_client_id": "",
+  "mariadb_user": "",
+  "mariadb_password": "",
+  "mariadb_host": "",
+  "maria_db_port": "",
+  "maria_db_database" : "",
+  "subscribe_table": ""
+}
