@@ -1,4 +1,4 @@
-import mariadb
+  GNU nano 6.2                                                                                                   utils/db_util.py                                                                                                            import mariadb
 from utils.config_reader import config
 from utils.bot_manipulator import bot
 
@@ -16,12 +16,12 @@ class DbUtil:
         self.user = user
         self.cursor = self.conn.cursor()
 
-    def add_new_artist_to_subscribe_list(self, artist, link):
-        ex_str = f"INSERT INTO {config['subscribe_table']} ('user', 'artist', 'link') " \
-                 f"VALUES ({self.user}, {artist}, {link}) "
-
+    def add_new_artist_to_subscribe_list(self, artist_name, sp_link):
+        ex_str = f"INSERT INTO subscribe(user, artist, link) VALUES ('{self.user}', '{artist_name}', '{sp_link}') "
         try:
             self.cursor.execute(ex_str)
+            print(ex_str, 'ok')
+            self.conn.commit()
         except mariadb.Error as e:
             print(f"Error to add new artist in {config['subscribe_table']}\n {e}")
             bot.send_message(self.user, text="Ошибка при добавлении исполнителя")
@@ -39,4 +39,3 @@ class DbUtil:
         self.conn.close()
 
         return artist_list
-
