@@ -13,7 +13,7 @@ class DbUtil:
             port=config["mariadb_port"],
             database=config["mariadb_database"]
         )
-        self.user_id = user
+        self.user = user
         self.cursor = self.conn.cursor()
 
     def add_new_artist_to_subscribe_list(self, artist, link):
@@ -29,7 +29,7 @@ class DbUtil:
         self.conn.close()
 
     def export_all_releases_from_subscribed_artist(self):
-        ex_str = f"SELECT name FROM {config['subscribe_table']} WHERE user_id = '{self.user_id}"
+        ex_str = f"SELECT name FROM {config['subscribe_table']} WHERE user_id = '{self.user}"
 
         try:
             artist_list = self.cursor.execute(ex_str)
