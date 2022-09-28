@@ -5,7 +5,7 @@
   "mariadb_user": "",
   "mariadb_password": "",
   "mariadb_host": "",
-  "maria_db_port": "",
+  "maria_db_port": 3452,
   "maria_db_database" : "",
   "subscribe_table": ""
 }

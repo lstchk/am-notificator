@@ -8,9 +8,9 @@ class ConfigReader:
     def read_config(self) -> dict:
         file = open(self.file_name)
 
-        config = json.load(file)
-        return config
+        conf = json.load(file)
+        return conf
 
 
-config_reader = ConfigReader("../resources/config.json")
+config_reader = ConfigReader("resources/config.json")
 config = config_reader.read_config()
