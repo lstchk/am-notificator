@@ -1,4 +1,4 @@
-  GNU nano 6.2                                                                                                   utils/db_util.py                                                                                                            import mariadb
+import mariadb
 from utils.config_reader import config
 from utils.bot_manipulator import bot
 
@@ -22,6 +22,7 @@ class DbUtil:
             self.cursor.execute(ex_str)
             print(ex_str, 'ok')
             self.conn.commit()
+            bot.send_message(self.user, text="Артист добавлен")
         except mariadb.Error as e:
             print(f"Error to add new artist in {config['subscribe_table']}\n {e}")
             bot.send_message(self.user, text="Ошибка при добавлении исполнителя")
@@ -30,12 +31,20 @@ class DbUtil:
 
     def export_all_releases_from_subscribed_artist(self):
         ex_str = f"SELECT name FROM {config['subscribe_table']} WHERE user_id = '{self.user}"
-
+        artist_list = []
         try:
             artist_list = self.cursor.execute(ex_str)
         except mariadb.Error as e:
             bot.send_message(self.user, text="Ошибка при экспорте альбомов")
             print(f"Error load data from {config['subscribe_table']}\n {e}")
+
         self.conn.close()
 
         return artist_list
+
+
+    def export_subscribed_artists(self):
+        ex_str = f"SELECT artist FROM subscribe WHERE user = '{self.user}"
+        artists_list = self.cursor.execute(ex_str)
+
+        return artists_list
