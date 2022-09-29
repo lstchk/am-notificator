@@ -11,7 +11,9 @@ class ListArtist:
         db = DbUtil(self.user)
         artist_list = db.export_subscribed_artists()
         res_str = ""
+        i = 1
         for artist in artist_list:
-            res_str += f"\n {artist}"
+            res_str += f"\n{i}) {artist[0]}"
+            i += 1
 
-        bot.reply_to(self.user, res_str)
+        bot.reply_to(self.message, res_str)

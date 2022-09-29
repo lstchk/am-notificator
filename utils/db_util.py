@@ -24,27 +24,32 @@ class DbUtil:
             self.conn.commit()
             bot.send_message(self.user, text="Артист добавлен")
         except mariadb.Error as e:
-            print(f"Error to add new artist in {config['subscribe_table']}\n {e}")
+            print(f"Error to add new artist in subscribe\n {e}")
             bot.send_message(self.user, text="Ошибка при добавлении исполнителя")
 
         self.conn.close()
 
     def export_all_releases_from_subscribed_artist(self):
-        ex_str = f"SELECT name FROM {config['subscribe_table']} WHERE user_id = '{self.user}"
+        ex_str = f"SELECT link FROM subscribe WHERE user_id = '{self.user}"
         artist_list = []
         try:
-            artist_list = self.cursor.execute(ex_str)
+            self.cursor.execute(ex_str)
+            artist_list = self.cursor.fetchall()
         except mariadb.Error as e:
             bot.send_message(self.user, text="Ошибка при экспорте альбомов")
-            print(f"Error load data from {config['subscribe_table']}\n {e}")
+            print(f"Error load data from subscribe\n {e}")
 
         self.conn.close()
 
         return artist_list
 
-
     def export_subscribed_artists(self):
-        ex_str = f"SELECT artist FROM subscribe WHERE user = '{self.user}"
-        artists_list = self.cursor.execute(ex_str)
+        ex_str = f"SELECT artist FROM subscribe WHERE user = '{self.user}'"
+        self.cursor.execute(ex_str)
+        artists_list = self.cursor.fetchall()
 
         return artists_list
+
+    def clear_dublicate(self):
+        ex_str = "ALTER IGNORE TABLE subscribe ADD UNIQUE KEY(`user`, `artist`, `link`)"
+        self.cursor.execute(ex_str)
