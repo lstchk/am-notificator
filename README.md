@@ -1,17 +1,21 @@
-#Advanced Music Notificator
+Advanced Music Notificator
+
 New music release notificator
 
-##Address:
+Address:
+
 https://t.me/AMNotificatorbot
 
-##Requirement 
+Requirements: 
+
 mariadb
 
 pyTelegramBotAPI
 
 spotipy
 
-##Commands
+Commands:
+
 /add [artist]: add new artist database
 
 /list_artist: view your added artist in database
