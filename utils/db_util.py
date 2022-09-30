@@ -50,6 +50,6 @@ class DbUtil:
 
         return artists_list
 
-    def clear_dublicate(self):
+    def clear_duplicate(self):
         ex_str = "ALTER IGNORE TABLE subscribe ADD UNIQUE KEY(`user`, `artist`, `link`)"
         self.cursor.execute(ex_str)

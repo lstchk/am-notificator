@@ -1,11 +1,11 @@
 from utils.db_util import DbUtil
 
 
-class ClearDubl:
+class ClearDupl:
     def __init__(self, message):
         self.message = message
         self.user = message.chat.id
 
     def clear(self):
         db = DbUtil(self.user)
-        db.clear_dublicate()
+        db.clear_duplicate()
