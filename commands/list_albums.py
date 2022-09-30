@@ -7,7 +7,7 @@ class ListAlbums:
     def __init__(self, message):
         self.message = message
         self.user = message.chat.id
-        self.artist = message.text[:13].strip()
+        self.artist = message.text[13:].strip()
 
     def list(self):
         conn = DbUtil(self.user)
@@ -15,13 +15,15 @@ class ListAlbums:
 
         all_releases_list = []
         for link in link_list:
-            all_releases_list += spotify_client.artist_albums(link, limit=100)
+            link = link[0]
+            raw = spotify_client.artist_albums(link, limit=50)
+            all_releases_list.append(raw)
 
         res = ""
         for releases_list in all_releases_list:
             releases_list = releases_list["items"]
             for release in releases_list:
                 release = release["name"] + " " + release["release_date"]
-                res += release + "/n"
+                res += release + "\n"
 
-            bot.reply_to(self.message, res)
+        bot.reply_to(self.message, res)

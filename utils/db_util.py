@@ -30,7 +30,7 @@ class DbUtil:
         self.conn.close()
 
     def export_all_releases_from_artist(self, artist):
-        ex_str = f"SELECT link FROM subscribe WHERE user_id = '{self.user}' AND artist = '{artist}'"
+        ex_str = f"SELECT link FROM subscribe WHERE user = '{self.user}' AND artist = '{artist}'"
         link_list = []
         try:
             self.cursor.execute(ex_str)
