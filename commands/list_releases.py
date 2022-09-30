@@ -3,7 +3,7 @@ from utils.db_util import DbUtil
 from utils.spotipy_manipulator import spotify_client
 
 
-class ListAlbums:
+class ListReleases:
     def __init__(self, message):
         self.message = message
         self.user = message.chat.id

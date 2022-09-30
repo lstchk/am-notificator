@@ -1,7 +1,7 @@
 from utils.bot_manipulator import bot
 from commands.add_artist import AddArtist
 from commands.list_artist import ListArtist
-from commands.list_albums import ListAlbums
+from commands.list_releases import ListReleases
 from commands.clear_dubl import ClearDubl
 
 
@@ -9,7 +9,8 @@ from commands.clear_dubl import ClearDubl
 def start(message):
     bot.reply_to(message, """Добавить артиста: /add имя артиста
 Список добавленных артистов: /list_artist
-Просмотр релизов добавленных артистов: /list_albums 
+Просмотр релизов добавленных артистов: /list_releases
+Удаление дубликатов в базе данных: /clear_dubl
 """)
 
 
@@ -26,9 +27,9 @@ def list_artists(message):
     artist_list.list()
 
 
-@bot.message_handler(commands=['list_albums'])
-def list_albums(message):
-    albums_list = ListAlbums(message)
+@bot.message_handler(commands=['list_releases'])
+def list_releases(message):
+    albums_list = ListReleases(message)
     albums_list.list()
 
 

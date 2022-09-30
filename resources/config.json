@@ -1,11 +1,10 @@
 {
-  "telegram_token": "d6fe282d64e34361ba33b3eebf63202a",
-  "spotify_secret_key": "d6964ac1ab2b4655938b57ba9d07a655",
-  "spotify_client_id": "d6fe282d64e34361ba33b3eebf63202a",
+  "telegram_token": "",
+  "spotify_secret_key": "",
+  "spotify_client_id": "",
   "mariadb_user": "",
   "mariadb_password": "",
   "mariadb_host": "",
-  "mariadb_port": 3452,
-  "mariadb_database" : "",
-  "subscribe_table": ""
+  "mariadb_port": 3306,
+  "mariadb_database" : ""
 }
