@@ -29,19 +29,19 @@ class DbUtil:
 
         self.conn.close()
 
-    def export_all_releases_from_subscribed_artist(self):
-        ex_str = f"SELECT link FROM subscribe WHERE user_id = '{self.user}"
-        artist_list = []
+    def export_all_releases_from_artist(self, artist):
+        ex_str = f"SELECT link FROM subscribe WHERE user_id = '{self.user}' AND artist = '{artist}'"
+        link_list = []
         try:
             self.cursor.execute(ex_str)
-            artist_list = self.cursor.fetchall()
+            link_list = self.cursor.fetchall()
         except mariadb.Error as e:
-            bot.send_message(self.user, text="Ошибка при экспорте альбомов")
+            bot.send_message(self.user, text="Ошибка при экспорте релизов")
             print(f"Error load data from subscribe\n {e}")
 
         self.conn.close()
 
-        return artist_list
+        return link_list
 
     def export_subscribed_artists(self):
         ex_str = f"SELECT artist FROM subscribe WHERE user = '{self.user}'"
