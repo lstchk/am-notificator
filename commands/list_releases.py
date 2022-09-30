@@ -7,7 +7,7 @@ class ListReleases:
     def __init__(self, message):
         self.message = message
         self.user = message.chat.id
-        self.artist = message.text[13:].strip()
+        self.artist = message.text[14:].strip()
 
     def list(self):
         conn = DbUtil(self.user)
