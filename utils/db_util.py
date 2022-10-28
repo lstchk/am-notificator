@@ -18,26 +18,17 @@ class DbUtil:
 
     def add_new_artist_to_subscribe_list(self, artist_name, sp_link):
         ex_str = f"INSERT INTO subscribe(user, artist, link) VALUES ('{self.user}', '{artist_name}', '{sp_link}') "
-        try:
-            self.cursor.execute(ex_str)
-            print(ex_str, 'ok')
-            self.conn.commit()
-            bot.send_message(self.user, text="Артист добавлен")
-        except mariadb.Error as e:
-            print(f"Error to add new artist in subscribe\n {e}")
-            bot.send_message(self.user, text="Ошибка при добавлении исполнителя")
+        self.cursor.execute(ex_str)
+        self.conn.commit()
+        bot.send_message(self.user, text="Артист добавлен")
 
         self.conn.close()
 
     def export_all_releases_from_artist(self, artist):
         ex_str = f"SELECT link FROM subscribe WHERE user = '{self.user}' AND artist = '{artist}'"
         link_list = []
-        try:
-            self.cursor.execute(ex_str)
-            link_list = self.cursor.fetchall()
-        except mariadb.Error as e:
-            bot.send_message(self.user, text="Ошибка при экспорте релизов")
-            print(f"Error load data from subscribe\n {e}")
+        self.cursor.execute(ex_str)
+        link_list = self.cursor.fetchall()
 
         self.conn.close()
 
@@ -48,8 +39,26 @@ class DbUtil:
         self.cursor.execute(ex_str)
         artists_list = self.cursor.fetchall()
 
+        self.conn.close()
+
         return artists_list
 
     def clear_duplicate(self):
         ex_str = "ALTER IGNORE TABLE subscribe ADD UNIQUE KEY(`user`, `artist`, `link`)"
         self.cursor.execute(ex_str)
+
+        self.conn.close()
+
+    def search_artist_from_name(self, artist):
+        ex_str = f"SELECT artist, link from subscribe WHERE user = '{self.user}' AND artist = '{artist}'"
+        self.cursor.execute(ex_str)
+        artist_list = self.cursor.fetchall()
+        self.conn.close()
+
+        return artist_list
+
+    def delete_artist(self, link):
+        ex_str = f"DELETE FROM subscribe WHERE user ='{self.user}' AND link = '{link}'"
+        self.cursor.execute
+
+        self.conn.close()

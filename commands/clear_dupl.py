@@ -1,4 +1,5 @@
 from utils.db_util import DbUtil
+from utils.bot_manipulator import bot
 
 
 class ClearDupl:
@@ -7,5 +8,9 @@ class ClearDupl:
         self.user = message.chat.id
 
     def clear(self):
-        db = DbUtil(self.user)
-        db.clear_duplicate()
+        try:
+            db = DbUtil(self.user)
+            db.clear_duplicate()
+            bot.reply_to(self.message, "Дубликаты удалены")
+        except Exeption as e:
+            bot.reply_to(self.message, "Ошибка обращения к базе данных!")
