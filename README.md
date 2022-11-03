@@ -16,13 +16,15 @@ spotipy
 
 Commands:
 
-/add [artist]: add new artist database
+Добавить артиста: /add_artist [имя артиста]
 
-/list_artist: view your added artist in database
+Список добавленных артистов: /list_artist
 
-/list_releases [artist]: view all artist's releases 
+Просмотр релизов добавленных артистов: /list_releases [имя артиста]
 
-/clear_dupl: deleting all your duplicates
+Удаление дубликатов в базе данных: /clear_dupl
+
+Удаление артиста из списка: /del_artist [имя артиста]
 
 
 
