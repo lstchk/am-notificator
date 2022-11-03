@@ -10,7 +10,8 @@ def delete_artist_from_db(call, link):
         db.delete_artist(link)
         bot.send_message(call.message.chat.id, "Артист удален")
     except Exception as e:
-        bot.reply_to(message, "Ошибка обращения к базе данных!")
+        print(e)
+        bot.send_message(call.message.chat.id, "Ошибка обращения к базе данных!")
 
 class DelArtist:
 
@@ -24,7 +25,7 @@ class DelArtist:
         artist_list = db.search_artist_from_name(self.artist)
 
         if len(artist_list) == 0:
-            bot.reply_to(self.message, "Данного артиста нет в списке" + self.artist)
+            bot.reply_to(self.message, "Данного артиста нет в списке")
         else:
             markup = types.InlineKeyboardMarkup()
 

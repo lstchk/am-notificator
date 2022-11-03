@@ -51,7 +51,6 @@ from commands import add_artist, del_artist
 
 @bot.callback_query_handler(func=lambda call: not None)
 def _hand_link(call):
-    print(call)
     user = call.from_user.id
     data = call.data
     callback_code = data[:3]

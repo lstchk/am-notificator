@@ -12,5 +12,5 @@ class ClearDupl:
             db = DbUtil(self.user)
             db.clear_duplicate()
             bot.reply_to(self.message, "Дубликаты удалены")
-        except Exeption as e:
+        except Exception as e:
             bot.reply_to(self.message, "Ошибка обращения к базе данных!")
