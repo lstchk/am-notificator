@@ -7,7 +7,7 @@ from commands.list_releases import ListReleases
 from commands.clear_dupl import ClearDupl
 from commands.del_artist import DelArtist
 from commands import add_artist, del_artist
-from notificator import Notificator
+from commands.notificator import Notificator
 
 
 @bot.message_handler(commands=['start'])
@@ -58,7 +58,7 @@ def start_notification(message):
     while True:
         dt = datetime.now().time()
         s_dt = time(7, 0, 0)
-        e_dt = time(7, 1, 0)
+        e_dt = time(23, 0, 0)
         if dt > s_dt and e_dt > dt:
             n = Notificator(message)
             t.sleep(86400)
