@@ -64,3 +64,12 @@ class DbUtil:
         self.conn.commit()
 
         self.conn.close()
+
+    def export_artist_link_pairs(self):
+        ex_str = f"SELECT artist, link FROM subscribe WHERE user = {self.user}"
+        self.cursor.execute(ex_str)
+        pairs = self.cursor.fetchall()
+
+        self.conn.close()
+
+        return pairs
