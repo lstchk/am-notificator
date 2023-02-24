@@ -6,7 +6,7 @@ from utils.spotipy_manipulator import spotify_client
 
 def add_artist_to_db(call, link):
     try:
-        user = call.message.chat.id
+        user = call.from_user.id
         artist = spotify_client.artist(link)
         artist = artist["name"]
         db = DbUtil(user)

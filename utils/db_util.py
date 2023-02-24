@@ -26,7 +26,6 @@ class DbUtil:
 
     def export_all_releases_from_artist(self, artist):
         ex_str = f"SELECT link FROM subscribe WHERE user = '{self.user}' AND artist = '{artist}'"
-        link_list = []
         self.cursor.execute(ex_str)
         link_list = self.cursor.fetchall()
 
@@ -46,6 +45,7 @@ class DbUtil:
     def clear_duplicate(self):
         ex_str = "ALTER IGNORE TABLE subscribe ADD UNIQUE KEY(`user`, `artist`, `link`)"
         self.cursor.execute(ex_str)
+        self.conn.commit()
 
         self.conn.close()
 
@@ -53,12 +53,23 @@ class DbUtil:
         ex_str = f"SELECT artist, link from subscribe WHERE user = '{self.user}' AND artist = '{artist}'"
         self.cursor.execute(ex_str)
         artist_list = self.cursor.fetchall()
+        
         self.conn.close()
 
         return artist_list
 
     def delete_artist(self, link):
-        ex_str = f"DELETE FROM subscribe WHERE user ='{self.user}' AND link = '{link}'"
-        self.cursor.execute
+        ex_str = f"DELETE FROM subscribe WHERE user = '{self.user}' AND link = '{link}'"
+        self.cursor.execute(ex_str)
+        self.conn.commit()
 
         self.conn.close()
+
+    def export_artist_link_pairs(self):
+        ex_str = f"SELECT artist, link FROM subscribe WHERE user = {self.user}"
+        self.cursor.execute(ex_str)
+        pairs = self.cursor.fetchall()
+
+        self.conn.close()
+
+        return pairs
